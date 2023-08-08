@@ -1,12 +1,10 @@
 import "./App.css";
-import Type from "./pages/OrderPage/Type";
-import SummaryPage from "./pages/SummaryPage";
+import OrderPage from "./pages/OrderPage";
 
 function App() {
   return (
-    <div className="App">
-      <SummaryPage />
-      <Type orderType="products" />
+    <div style={{ padding: "4rem" }}>
+      <OrderPage />
     </div>
   );
 }

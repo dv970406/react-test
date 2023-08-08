@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Products from "./Products";
 import axios from "axios";
 import ErrorBanner from "../../components/ErrorBanner";
+import Options from "./Options";
 
 interface IType {
   orderType: string;
@@ -31,9 +32,9 @@ const Type = ({ orderType }: IType) => {
     return <ErrorBanner message="에러가 발생했습니다." />;
   }
 
-  const ItemComponent = orderType === "products" ? Products : null;
+  const ItemComponent = orderType === "products" ? Products : Options;
 
-  const optionItems =
+  const dataItems =
     ItemComponent &&
     items.map((item) => (
       <ItemComponent
@@ -42,7 +43,21 @@ const Type = ({ orderType }: IType) => {
         imagePath={item.imagePath}
       />
     ));
-  return <div>{optionItems}</div>;
+  return (
+    <>
+      <h2>주문 종류</h2>
+      <p>하나의 가격</p>
+      <p>총 가격: </p>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: orderType === "options" ? "column" : "row",
+        }}
+      >
+        {dataItems}
+      </div>
+    </>
+  );
 };
 
 export default Type;

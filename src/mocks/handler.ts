@@ -1,5 +1,6 @@
 import { rest } from "msw";
 
+// mocking할 데이터들
 export const handlers = [
   rest.get("http://localhost:4000/products", (req, res, ctx) => {
     return res(

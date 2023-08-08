@@ -3,6 +3,7 @@ import Type from "../Type";
 import { server } from "../../../mocks/server";
 import { rest } from "msw";
 
+// Products
 test("display product images from server", async () => {
   render(<Type orderType="products" />);
 
@@ -30,4 +31,15 @@ test("when fetching product datas, face an error", async () => {
 
   const errorBanner = await screen.findByTestId("error-banner");
   expect(errorBanner).toHaveTextContent("에러가 발생했습니다.");
+});
+
+// Options
+test("fetch option information from server", async () => {
+  render(<Type orderType="options" />);
+
+  // Options 컴포넌트의 images들은 서버로부터 받아오는 데이터라 비동기로 처리할 것임(find쿼리 사용)
+  const optionCheckboxes: HTMLInputElement[] = await screen.findAllByRole(
+    "checkbox"
+  );
+  expect(optionCheckboxes).toHaveLength(2);
 });
