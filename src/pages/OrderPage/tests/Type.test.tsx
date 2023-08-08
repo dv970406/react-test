@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Type from "../Type";
+import { server } from "../../../mocks/server";
+import { rest } from "msw";
 
 test("display product images from server", async () => {
   render(<Type orderType="products" />);
@@ -14,4 +16,18 @@ test("display product images from server", async () => {
   const altText = productImages.map((element) => element.alt);
 
   expect(altText).toEqual(["America product", "England product"]);
+});
+
+test("when fetching product datas, face an error", async () => {
+  // handler파일에 정의해놓은 handler로 보내지 않고 에러를 내기 위해 handler를 덮어씌운 것
+  server.resetHandlers(
+    rest.get("http://localhost:4000/products", (req, res, ctx) =>
+      res(ctx.status(500))
+    )
+  );
+
+  render(<Type orderType="products" />);
+
+  const errorBanner = await screen.findByTestId("error-banner");
+  expect(errorBanner).toHaveTextContent("에러가 발생했습니다.");
 });
