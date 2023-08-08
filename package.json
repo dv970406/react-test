@@ -35,8 +35,14 @@
     ]
   },
   "devDependencies": {
+    "axios": "^1.4.0",
     "eslint-plugin-jest-dom": "^5.0.2",
     "eslint-plugin-testing-library": "^5.11.1",
     "msw": "^1.2.3"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }
