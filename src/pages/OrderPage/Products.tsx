@@ -1,10 +1,15 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 
 interface IProducts {
   name: string;
   imagePath: string;
+  updateItemCount: (itemName: string, newItemCount: number) => void;
 }
-const Products = ({ name, imagePath }: IProducts) => {
+const Products = ({ name, imagePath, updateItemCount }: IProducts) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const currentValue = +event.target.value;
+    updateItemCount(name, currentValue);
+  };
   return (
     <div style={{ textAlign: "center" }}>
       <img
@@ -20,6 +25,7 @@ const Products = ({ name, imagePath }: IProducts) => {
           name="quantity"
           min={0}
           defaultValue={0}
+          onChange={handleChange}
         />
       </form>
     </div>

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Products from "./Products";
 import axios from "axios";
 import ErrorBanner from "../../components/ErrorBanner";
 import Options from "./Options";
+import { OrderContext, TOrderType } from "../../contexts/OrderContext";
 
 interface IType {
-  orderType: string;
+  orderType: TOrderType;
 }
 interface IItem {
   name: string;
@@ -14,6 +15,7 @@ interface IItem {
 const Type = ({ orderType }: IType) => {
   const [items, setItems] = useState<IItem[]>([]);
   const [error, setError] = useState(false);
+  const [orderDatas, updateItemCount] = useContext(OrderContext);
 
   useEffect(() => {
     loadItems(orderType);
@@ -41,13 +43,16 @@ const Type = ({ orderType }: IType) => {
         key={item.name}
         name={item.name}
         imagePath={item.imagePath}
+        updateItemCount={(itemName: string, newItemCount: number) =>
+          updateItemCount(itemName, newItemCount, orderType)
+        }
       />
     ));
   return (
     <>
-      <h2>주문 종류</h2>
-      <p>하나의 가격</p>
-      <p>총 가격: </p>
+      <h2>상품 종류</h2>
+      <p>상품 하나의 가격</p>
+      <p>총 가격: {orderDatas.totals[orderType]}</p>
       <div
         style={{
           display: "flex",
