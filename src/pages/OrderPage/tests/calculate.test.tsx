@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react";
 import Type from "../Type";
 import userEvent from "@testing-library/user-event";
+import { render, screen } from "../../../test.utils";
 
 test("update product's total when products change", async () => {
   render(<Type orderType="products" />);
 
   // exact를 false로 줌으로써 "상품 총 가격:" 이라는 텍스트만 포함되면 뒤에 0이 오건, 4000이 오건 상관없이 잡아옴
-  const productsTotal = screen.getByText("상품 총 가격:", { exact: false });
+  const productsTotal = screen.getByText("총 가격:", { exact: false });
   expect(productsTotal).toHaveTextContent("0");
 
   // 아메리카 여행 상품 1개 추가
