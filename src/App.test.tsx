@@ -67,6 +67,27 @@ test('From order to order completion',async()=>{
         name:'주문 확인'
     });
     userEvent.click(confirmOrderButton);
+
+
+    ////////// 주문 완료 페이지 //////////
+    // 백엔드에서 데이터를 가져오는 동안 loading 문구
+    const loading=screen.getByText(/loading.../i);
+    expect(loading).toBeInTheDocument();
+
+    // getByRole이 아닌 findByRole을 사용하는 이유는 주문완료 페이지에 올 때
+    // post request를 보내서 async작업이 이루어지고 주문이 성공했습니다. 문구가 나오기 때문
+    const completeHeader=await screen.findByRole('heading',{
+        name:'주문이 성공했습니다.'
+    })
+    expect(completeHeader).toBeInTheDocument()
+
+    // 데이터를 받아온 후 loading 제거
+    const removeLoading=screen.queryByText('loading');
+    expect(removeLoading).not.toBeInTheDocument()
+
+    // 첫 페이지로 버튼 클릭
+    const firstPageButton=screen.getByRole('button',{name:'되돌아가기'})
+    userEvent.click(firstPageButton)
 })
 
 

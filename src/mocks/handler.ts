@@ -28,4 +28,21 @@ export const handlers = [
       ])
     );
   }),
+  rest.post('http://localhost:4000/order',(req,res,ctx)=>{
+    let dummyData=[
+      {
+        orderNumber:1,
+        price:2000
+      },
+      {
+        orderNumber:2,
+        price:3000
+      },
+      {
+        orderNumber:3,
+        price:4000
+      },
+    ]
+    return res(ctx.json(dummyData))
+  })
 ];

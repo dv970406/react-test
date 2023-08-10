@@ -10,15 +10,16 @@ interface ITotals {
   options: number;
   total: number;
 }
-interface IValue extends IOrderCounts {
+export interface IOrder extends IOrderCounts {
   totals: ITotals;
 }
+export type TOrderContext= [
+  IOrder,
+  (itemName: string, newItemCount: number, orderType: TOrderType) => void
+]
 
 export const OrderContext = createContext<
-  [
-    IValue,
-    (itemName: string, newItemCount: number, orderType: TOrderType) => void
-  ]
+TOrderContext
 >([] as any);
 
 const pricePerItem = {
