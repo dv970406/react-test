@@ -1,6 +1,9 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
-const CompletePage = () => {
+interface ICompletePage{
+  setStep:Dispatch<SetStateAction<number>>;
+}
+const CompletePage = ({setStep}:ICompletePage) => {
   return <div>CompletePage</div>;
 };
 
