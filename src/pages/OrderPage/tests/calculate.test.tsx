@@ -49,6 +49,7 @@ test("update option's total when options change", async () => {
 describe("total price of products and options", () => {
   // total price가 0부터 시작해서 product를 추가했을 때 total price가 제대로 변화되는가
   test("total price starts with 0 and updating total price when adding one product", async () => {
+    // @ts-ignore
     render(<OrderPage />);
 
     const total = screen.getByText("Total Price:", { exact: false });
@@ -65,6 +66,7 @@ describe("total price of products and options", () => {
 
   // option 추가 시 total price가 업데이트 되는가
   test("updating total price when adding one option", async () => {
+    // @ts-ignore
     render(<OrderPage />);
     const total = screen.getByText("Total Price:", { exact: false });
 
@@ -77,6 +79,7 @@ describe("total price of products and options", () => {
 
   // option와 product 제거 시 total price가 업데이트 되는가
   test("updating total price when removing option and product", async () => {
+    // @ts-ignore
     render(<OrderPage />);
     const total = screen.getByText("Total Price:", { exact: false });
 

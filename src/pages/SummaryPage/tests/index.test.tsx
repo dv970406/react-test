@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
 import SummaryPage from "..";
+import { render, screen } from "../../../test.utils";
 
 test("checkbox and button", () => {
+  // @ts-ignore
   render(<SummaryPage />);
 
   // label과 checkbox가 id로 연결되어 있어야 함
