@@ -86,6 +86,16 @@ test("From order to order completion", async () => {
   // 첫 페이지로 버튼 클릭
   const firstPageButton = screen.getByRole("button", { name: "되돌아가기" });
   userEvent.click(firstPageButton);
+
+  // 여행 product 총 가격과 option 총 가격이 reset 되었는지 확인
+  const productsTotal = screen.getByText("상품 총 가격: 0");
+  expect(productsTotal).toBeInTheDocument();
+  const optionsTotal = screen.getByText("옵션 총 가격: 0");
+  expect(optionsTotal).toBeInTheDocument();
+
+  await screen.findByRole("spinbutton", { name: "America" });
+  await screen.findByRole("checkbox", { name: "Insurance" });
+
   // not wrapped in act 경고 해결
   //   await waitFor(() => {
   //     // 되돌아가기 버튼 클릭 시 나올 요소들 중 하나가 있는지 확인

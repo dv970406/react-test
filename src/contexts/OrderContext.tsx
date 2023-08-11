@@ -13,14 +13,13 @@ interface ITotals {
 export interface IOrder extends IOrderCounts {
   totals: ITotals;
 }
-export type TOrderContext= [
+export type TOrderContext = [
   IOrder,
-  (itemName: string, newItemCount: number, orderType: TOrderType) => void
-]
+  (itemName: string, newItemCount: number, orderType: TOrderType) => void,
+  () => void
+];
 
-export const OrderContext = createContext<
-TOrderContext
->([] as any);
+export const OrderContext = createContext<TOrderContext>([] as any);
 
 const pricePerItem = {
   products: 1000,
@@ -73,7 +72,14 @@ export const OrderContextProvider = (props: any) => {
 
       setOrderCounts(newOrderCounts);
     };
-    return [{ ...orderCounts, totals }, updateItemCount];
+
+    const resetOrderDatas = () => {
+      setOrderCounts({
+        products: new Map(),
+        options: new Map(),
+      });
+    };
+    return [{ ...orderCounts, totals }, updateItemCount, resetOrderDatas];
   }, [orderCounts, totals]);
 
   return <OrderContext.Provider value={value} {...props} />;
